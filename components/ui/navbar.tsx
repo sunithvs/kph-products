@@ -5,15 +5,17 @@ import { Button } from './button'
 import { Menu, X } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { RulesModal } from './rules-modal'
 
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Products', href: '/products' },
-  { label: 'About KPH', href: 'https://kph.org', external: true }
+  { label: 'About KPH', href: 'https://kph.club', external: true }
 ]
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [showRulesModal, setShowRulesModal] = useState(false)
   const pathname = usePathname()
 
   // Close menu when route changes
@@ -46,7 +48,8 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <Button size="sm">Submit Product</Button>
+            <Button size="sm" onClick={() => setShowRulesModal(true)}>Submit Product</Button>
+            <RulesModal isOpen={showRulesModal} onOpenChange={setShowRulesModal} />
           </div>
 
           {/* Mobile Menu Button */}
@@ -76,7 +79,7 @@ export function Navbar() {
                   {item.label}
                 </Link>
               ))}
-              <Button size="sm" className="w-full">Submit Product</Button>
+              <Button size="sm" className="w-full" onClick={() => setShowRulesModal(true)}>Submit Product</Button>
             </div>
           </div>
         )}
