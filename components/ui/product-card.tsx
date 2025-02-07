@@ -14,8 +14,18 @@ interface Product {
 }
 
 export function ProductCard({ product }: { product: Product }) {
+  const screenshotUrl = `https://api.microlink.io?url=${encodeURIComponent(product.website)}&screenshot=true&embed=screenshot.url`
+
   return (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card className="hover:shadow-lg transition-shadow overflow-hidden">
+      <div className="w-full h-48 overflow-hidden">
+        <img
+          src={screenshotUrl}
+          alt={`${product.name} preview`}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
       <CardHeader>
         <CardTitle className="text-xl">{product.name}</CardTitle>
         <CardDescription>{product.tagline}</CardDescription>

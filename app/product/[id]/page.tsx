@@ -27,7 +27,15 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         Back to Products
       </Link>
       
-      <Card className="max-w-3xl mx-auto">
+      <Card className="max-w-3xl mx-auto overflow-hidden">
+        <div className="w-full h-[400px] overflow-hidden">
+          <img
+            src={`https://api.microlink.io?url=${encodeURIComponent(product.website)}&screenshot=true&embed=screenshot.url`}
+            alt={`${product.name} preview`}
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
         <CardHeader>
           <CardTitle className="text-3xl">{product.name}</CardTitle>
           <CardDescription className="text-xl mt-2">{product.tagline}</CardDescription>
