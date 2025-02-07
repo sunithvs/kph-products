@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ClientOnly } from "@/components/providers/client-only";
@@ -9,7 +9,11 @@ import { PageTransition } from "@/components/ui/page-transition";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ 
+  subsets: ["latin"],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins'
+});
 
 export const metadata: Metadata = {
   title: "Kerala Product Hunt - Discover Amazing Products from Kerala",
@@ -23,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-background min-h-screen`}>
+      <body className={`${poppins.className} bg-background min-h-screen`}>
         <ClientOnly>
           <CustomCursor />
         </ClientOnly>

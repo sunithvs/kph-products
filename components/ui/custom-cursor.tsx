@@ -34,18 +34,31 @@ export function CustomCursor() {
 
   return (
     <div
-      className="fixed pointer-events-none z-50 mix-blend-difference"
+      className="fixed pointer-events-none z-[9999] mix-blend-difference"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
-        transform: 'translate(-50%, -50%)'
+      //  rotate the cursor
+
+
       }}
     >
-      <div
-        className={`rounded-full bg-white transition-all duration-200 ${
-          isPointer ? 'w-8 h-8 opacity-50' : 'w-4 h-4'
-        }`}
-      />
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        className={`transition-transform duration-150 ${isPointer ? 'scale-75' : 'scale-100'}`}
+        style={{ transform: `rotate(0eg)` }}
+      >
+        <path
+          d="M2 2L10 18L12.5 11.5L19 9L2 2Z"
+          fill="white"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+      </svg>
     </div>
   )
 }

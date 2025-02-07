@@ -62,8 +62,15 @@
 @layer base {
   * {
     @apply border-border;
+    cursor: none !important;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  @media (pointer: coarse) {
+    * {
+      cursor: auto !important;
+    }
   }
 }
