@@ -4,12 +4,46 @@ import { ProductCard } from '@/components/ui/product-card'
 import productsData from '@/data/res.json'
 import { Button } from '@/components/ui/button'
 import { Search, SlidersHorizontal } from 'lucide-react'
+import { useState, useMemo } from 'react'
+
+type SortOption = 'votes' | 'recent' | 'comments'
 
 export default function ProductsPage() {
-  const products = productsData.results.map(result => {
-    const data = JSON.parse(result.data)
-    return data.data.post
-  }).sort((a, b) => b.votesCount - a.votesCount)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [sortBy, setSortBy] = useState<SortOption>('votes')
+
+  const allProducts = useMemo(() => {
+    return productsData.results.map(result => {
+      const data = JSON.parse(result.data)
+      return data.data.post
+    })
+  }, [])
+
+  const filteredProducts = useMemo(() => {
+    let filtered = allProducts
+
+    // Apply search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(product =>
+        product.name.toLowerCase().includes(query) ||
+        product.tagline.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query)
+      )
+    }
+
+    // Apply sorting
+    switch (sortBy) {
+      case 'votes':
+        return filtered.sort((a, b) => b.votesCount - a.votesCount)
+      case 'recent':
+        return filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      case 'comments':
+        return filtered.sort((a, b) => b.commentsCount - a.commentsCount)
+      default:
+        return filtered
+    }
+  }, [allProducts, searchQuery, sortBy])
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -29,6 +63,8 @@ export default function ProductsPage() {
                 type="text"
                 placeholder="Search products..."
                 className="w-full pl-9 pr-4 py-2 rounded-md border bg-background"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <Button variant="outline" className="shrink-0">
@@ -40,20 +76,35 @@ export default function ProductsPage() {
 
         {/* Filter Pills */}
         <div className="flex flex-wrap gap-2 mb-6">
-          <Button variant="secondary" size="sm" className="rounded-full">
+          <Button
+            variant={sortBy === 'votes' ? 'secondary' : 'outline'}
+            size="sm"
+            className="rounded-full"
+            onClick={() => setSortBy('votes')}
+          >
             Most Upvoted
           </Button>
-          <Button variant="outline" size="sm" className="rounded-full">
+          <Button
+            variant={sortBy === 'recent' ? 'secondary' : 'outline'}
+            size="sm"
+            className="rounded-full"
+            onClick={() => setSortBy('recent')}
+          >
             Recently Added
           </Button>
-          <Button variant="outline" size="sm" className="rounded-full">
+          <Button
+            variant={sortBy === 'comments' ? 'secondary' : 'outline'}
+            size="sm"
+            className="rounded-full"
+            onClick={() => setSortBy('comments')}
+          >
             Most Discussed
           </Button>
         </div>
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product, index) => (
+          {filteredProducts.map((product, index) => (
             <div
               key={product.id}
               className="animate-in slide-in-from-bottom duration-500"
