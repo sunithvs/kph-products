@@ -8,6 +8,7 @@ import { Search } from 'lucide-react'
 import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FilterDropdown } from '@/components/ui/filter-dropdown'
+import { RulesModal } from '@/components/ui/rules-modal'
 
 type SortOption = 'votes' | 'recent' | 'comments'
 
@@ -15,6 +16,7 @@ export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState<SortOption>('votes')
   const [isLoading, setIsLoading] = useState(true)
+  const [showRulesModal, setShowRulesModal] = useState(false)
   const [category, setCategory] = useState('all')
 
   const allProducts = useMemo(() => {
@@ -76,11 +78,17 @@ export default function ProductsPage() {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-          <div>
-            <h1 className="text-3xl font-bold">All Products</h1>
-            <p className="text-muted-foreground mt-1">
-              Discover amazing products built by Kerala's innovators
-            </p>
+          <div className="flex items-center gap-4">
+            <div>
+              <h1 className="text-3xl font-bold">All Products</h1>
+              <p className="text-muted-foreground mt-1">
+                Discover amazing products built by Mallu innovators
+              </p>
+            </div>
+            <Button onClick={() => setShowRulesModal(true)} className="shrink-0 whitespace-nowrap">
+              Submit Product
+            </Button>
+            <RulesModal isOpen={showRulesModal} onOpenChange={setShowRulesModal} />
           </div>
           <div className="flex items-center gap-4 w-full md:w-auto">
             <div className="relative flex-1 md:w-64">
@@ -93,7 +101,6 @@ export default function ProductsPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <FilterDropdown onFilterChange={setCategory} />
           </div>
         </div>
 
