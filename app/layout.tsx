@@ -18,7 +18,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <MainNav />
         <main className="flex-1 p-10">{children}</main>
         <Toaster />
       </body>
