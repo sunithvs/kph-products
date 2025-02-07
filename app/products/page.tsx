@@ -4,9 +4,10 @@ import { ProductCard } from '@/components/ui/product-card'
 import { ProductCardSkeleton } from '@/components/ui/product-card-skeleton'
 import productsData from '@/data/res.json'
 import { Button } from '@/components/ui/button'
-import { Search, SlidersHorizontal } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { FilterDropdown } from '@/components/ui/filter-dropdown'
 
 type SortOption = 'votes' | 'recent' | 'comments'
 
@@ -14,6 +15,7 @@ export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState<SortOption>('votes')
   const [isLoading, setIsLoading] = useState(true)
+  const [category, setCategory] = useState('all')
 
   const allProducts = useMemo(() => {
     return productsData.results.map(result => {
@@ -42,6 +44,18 @@ export default function ProductsPage() {
         product.tagline.toLowerCase().includes(query) ||
         product.description.toLowerCase().includes(query)
       )
+    }
+
+    // Apply category filter
+    if (category !== 'all') {
+      filtered = filtered.filter(product => {
+        const productTags = [
+          product.name.toLowerCase(),
+          product.tagline.toLowerCase(),
+          product.description.toLowerCase(),
+        ].join(' ')
+        return productTags.includes(category.toLowerCase())
+      })
     }
 
     // Apply sorting
@@ -79,10 +93,7 @@ export default function ProductsPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <Button variant="outline" className="shrink-0">
-              <SlidersHorizontal className="w-4 h-4 mr-2" />
-              Filter
-            </Button>
+            <FilterDropdown onFilterChange={setCategory} />
           </div>
         </div>
 

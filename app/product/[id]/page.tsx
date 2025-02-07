@@ -68,12 +68,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       >
         <Card className="max-w-4xl mx-auto overflow-hidden mb-8 border-2 shadow-lg">
         <div className="relative w-full h-[400px] overflow-hidden bg-gray-100 group">
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <Button variant="secondary" className="gap-2">
-              <Share2 className="w-4 h-4" />
-              Share Product
-            </Button>
-          </div>
+
           <img
             src={`https://api.microlink.io?url=${encodeURIComponent(product.website)}&screenshot=true&embed=screenshot.url`}
             alt={`${product.name} preview`}
