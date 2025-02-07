@@ -19,7 +19,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h1 className="text-4xl md:text-6xl font-bold leading-tight animate-in slide-in-from-bottom duration-500">
             Every <span className="text-primary">Product</span> happenings
-            in Kerala <span className="inline-block animate-bounce">🌴</span>
+            in Kerala <span className="mt-1">🌴</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-in slide-in-from-bottom duration-500 delay-150">
             Kerala's brightest minds come together to build the future of internet products,

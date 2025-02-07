@@ -5,6 +5,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { ClientOnly } from "@/components/providers/client-only";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { Navbar } from "@/components/ui/navbar";
+import { PageTransition } from "@/components/ui/page-transition";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +28,11 @@ export default function RootLayout({
           <CustomCursor />
         </ClientOnly>
         <Navbar />
-        <main className="pt-16">{children}</main>
+        <main className="pt-16">
+          <PageTransition>{children}</PageTransition>
+        </main>
+        <Analytics />
+        <SpeedInsights />
         <Toaster />
       </body>
     </html>

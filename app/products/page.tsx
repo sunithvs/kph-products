@@ -1,22 +1,34 @@
 'use client'
 
 import { ProductCard } from '@/components/ui/product-card'
+import { ProductCardSkeleton } from '@/components/ui/product-card-skeleton'
 import productsData from '@/data/res.json'
 import { Button } from '@/components/ui/button'
 import { Search, SlidersHorizontal } from 'lucide-react'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 type SortOption = 'votes' | 'recent' | 'comments'
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState<SortOption>('votes')
+  const [isLoading, setIsLoading] = useState(true)
 
   const allProducts = useMemo(() => {
     return productsData.results.map(result => {
       const data = JSON.parse(result.data)
       return data.data.post
     })
+  }, [])
+
+  useEffect(() => {
+    // Simulate loading delay
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+
+    return () => clearTimeout(timer)
   }, [])
 
   const filteredProducts = useMemo(() => {
@@ -104,15 +116,42 @@ export default function ProductsPage() {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProducts.map((product, index) => (
-            <div
-              key={product.id}
-              className="animate-in slide-in-from-bottom duration-500"
-              style={{ animationDelay: `\${index * 100}ms` }}
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
+          <AnimatePresence mode="wait">
+            {isLoading ? (
+              // Skeleton loading state
+              <>
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <motion.div
+                    key={`skeleton-${index}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2, delay: index * 0.05 }}
+                  >
+                    <ProductCardSkeleton />
+                  </motion.div>
+                ))}
+              </>
+            ) : (
+              // Actual products
+              <>
+                {filteredProducts.map((product, index) => (
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      duration: 0.3,
+                      delay: index * 0.05,
+                      ease: [0.25, 0.1, 0.25, 1]
+                    }}
+                  >
+                    <ProductCard product={product} />
+                  </motion.div>
+                ))}
+              </>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
