@@ -33,7 +33,7 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Kerala's brightest minds come together to build the future of internet products,
+            Kerala&apos;s brightest minds come together to build the future of internet products,
             connect with like-minded innovators, and grow together.
           </motion.p>
           <motion.div 

@@ -69,7 +69,7 @@ export default function ProductsPage() {
       default:
         return filtered
     }
-  }, [allProducts, searchQuery, sortBy])
+  }, [allProducts, searchQuery, sortBy, category])
 
   return (
     <div className="container mx-auto px-4 py-8">

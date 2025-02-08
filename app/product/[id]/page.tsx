@@ -7,6 +7,7 @@ import { ArrowUpIcon, MessageCircle, Globe, ArrowLeft, Calendar, Twitter, Link a
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
+import Image from 'next/image'
 
 interface Maker {
   name: string
@@ -69,11 +70,12 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         <Card className="max-w-4xl mx-auto overflow-hidden mb-8 border-2 shadow-lg">
         <div className="relative w-full h-[400px] overflow-hidden bg-gray-100 group">
 
-          <img
+          <Image
             src={`https://api.microlink.io?url=${encodeURIComponent(product.website)}&screenshot=true&embed=screenshot.url`}
             alt={`${product.name} preview`}
-            className="w-full h-full object-cover"
-            loading="eager"
+            className="object-cover"
+            fill
+            priority
           />
         </div>
         <CardHeader className="border-b">
@@ -151,10 +153,12 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                   >
                     <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
                       {maker.profileImage ? (
-                        <img
+                        <Image
                           src={maker.profileImage}
                           alt={maker.name}
-                          className="w-full h-full object-cover"
+                          className="object-cover"
+                          fill
+                          sizes="(max-width: 48px) 100vw"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
