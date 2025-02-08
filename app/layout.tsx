@@ -8,6 +8,7 @@ import { Navbar } from "@/components/ui/navbar";
 import { PageTransition } from "@/components/ui/page-transition";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Footer } from "@/components/ui/footer";
 
 const poppins = Poppins({ 
   subsets: ["latin"],
@@ -27,14 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${poppins.className} bg-background min-h-screen`}>
+      <body className={`${poppins.className} bg-background min-h-screen flex flex-col`}>
         <ClientOnly>
           <CustomCursor />
         </ClientOnly>
         <Navbar />
-        <main className="pt-16">
+        <main className="pt-16 flex-1">
           <PageTransition>{children}</PageTransition>
         </main>
+        <Footer />
         <Analytics />
         <SpeedInsights />
         <Toaster />

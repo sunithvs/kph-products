@@ -138,73 +138,11 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          {/* Makers Section */}
-          {makers.length > 0 && (
-            <div className="border-t pt-6">
-              <h3 className="text-lg font-semibold mb-4">Makers</h3>
-              <div className="grid gap-6">
-                {makers.map((maker: Maker) => (
-                  <motion.div 
-                    key={maker.username} 
-                    className="flex items-start gap-4 p-4 rounded-lg border hover:border-primary/50 transition-colors"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                      {maker.profileImage ? (
-                        <Image
-                          src={maker.profileImage}
-                          alt={maker.name}
-                          className="object-cover"
-                          fill
-                          sizes="(max-width: 48px) 100vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <User2 className="w-6 h-6 text-gray-400" />
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium">{maker.name}</h4>
-                      {maker.headline && (
-                        <p className="text-gray-600 text-sm mt-1">{maker.headline}</p>
-                      )}
-                      <div className="flex gap-3 mt-3">
-                        {maker.twitterUsername && (
-                          <a
-                            href={`https://twitter.com/${maker.twitterUsername}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:text-blue-600 inline-flex items-center gap-1"
-                          >
-                            <Twitter className="w-4 h-4" />
-                            <span className="text-sm">@{maker.twitterUsername}</span>
-                          </a>
-                        )}
-                        {maker.websiteUrl && (
-                          <a
-                            href={maker.websiteUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-500 hover:text-gray-600 inline-flex items-center gap-1"
-                          >
-                            <Globe className="w-4 h-4" />
-                            <span className="text-sm">Website</span>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                   </motion.div>
-                ))}
-              </div>
-            </div>
-          )}
+
         </CardContent>
       </Card>
       </motion.div>
-          )
+
         </motion.div>
         </motion.div>
     </div>

@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: 'api.microlink.io',
         port: '',
         pathname: '/**',
+      },{
+        protocol: 'https',
+        hostname: 'ph-avatars.imgix.net',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
